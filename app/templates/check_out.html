@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <form name="input" action="/check_out/" method="get">
+    <div id="tabs">
+    <ul>
+    <br/><br/>
+    <b>Check out:</b><br/><br/>
+    ISBN: 
+    <input type="text" name="ISBN" style="position:absolute;left:150px"/>
+    <br/><br/>
+    branch id: 
+    <input type="text" name="branch_id" style="position:absolute;left:150px"/>
+    <br/><br/>
+    card no: 
+    <input type="text" name="card_no" style="position:absolute;left:150px"/>
+    <br/><br/>
+    <input type="submit" value="check out"/>
+  	</ul>
+    </div>
+  </form>
+  {% if errStr %}
+   <div id="tabs">
+    <ul>
+      <p><b>{{errStr}}</b></p>
+    </ul>
+    </div>
+  {% endif %}
+  {% for book in book_datas %}
+  <div id="tabs">
+    <ul>
+  		<p>ISBN: <b>{{book.ISBN}}</b> title: <b>{{book.title}}</b> author: <b>{{book.author}}</b></p>
+  {% for branch_info in book.branch %}
+    <p>branch id: {{branch_info.branch_id}} No of copies: {{branch_info.no_of_copies}}</p>
+  {% endfor %}
+	</ul>
+   </div>
+  {% endfor %}
+{% endblock %}

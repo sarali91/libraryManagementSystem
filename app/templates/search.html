@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+  <form name="input" action="/search/" method="get">
+	<div id="tabs">
+    	<ul>
+    	<br/><br/>
+    	<b>Search:</b><br/><br/>
+    	ISBN: 
+    	<input type="text" name="ISBN" style="position:absolute;left:150px"/>
+    	<br/><br/>
+    	title: 
+    	<input type="text" name="title" style="position:absolute;left:150px"/>
+    	<br/><br/>
+    	author: 
+    	<input type="text" name="author" style="position:absolute;left:150px"/>
+    	<br/><br/>
+    	<input type="submit" value="search"/>
+    	</ul>
+	</div>
+  </form>
+  {% for book in book_datas %}
+  <div id="tabs">
+  	<ul>
+    	<p>ISBN: <b>{{book.ISBN}}</b> title: <b>{{book.title}}</b> author: <b>{{book.author}}</b></p>  		
+  		<table>
+  		<tr>
+  		<th><b>Branck id</b></th>
+  		<th><b>Branck name</b></th>
+  		<th><b>No of copies</b></th>
+  		<th><b>No of available copies</b></th>
+  		</tr>
+  		{% for branch_info in book.branch %}
+<!--     	<p>Branch id: {{branch_info.Branch_id}} Branch.name: {{branch_info.Branch_name}} No of copies: {{branch_info.No_of_copies}} No of available copies: {{branch_info.No_of_available_copies}}</p> -->
+ 		<tr>
+ 		<td>{{branch_info.Branch_id}}</td>
+ 		<td>{{branch_info.Branch_name}}</td>
+ 		<td>{{branch_info.No_of_copies}}</td>
+ 		<td>{{branch_info.No_of_available_copies}}</td>
+ 		</tr>
+  		{% endfor %}
+  		 </table>
+  	</ul>  
+  	</div>
+  {% endfor %}
+{% endblock %}

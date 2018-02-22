@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+  <form name="input" action="/fine/" method="get">
+    <input type="radio" name="fine_mode" value="search" style="visibility:hidden;" checked/>
+    <div id="tabs">
+    <ul>
+    <b>Search fine:</b><br/><br/>
+    card no:
+    <input type="text" name="card_no" style="position:absolute;left:150px"/>
+    <br/><br/>
+    <input type="submit" value="search"/>
+    </ul>
+    </div>
+  </form>
+  
+  {% if errStr %}
+  	<div id="tabs">
+    <ul>
+        <p><b>{{errStr}}</b></p>
+    </ul>
+    </div>
+  {% endif %}
+  
+  {% if book_datas %}
+  <form name="input" action="/fine/" method="get">
+    <input type="radio" name="fine_mode" value="pay" style="visibility:hidden;" checked/>
+    <div id="tabs">
+    <ul>
+    <input type="submit" value="pay"/>
+    <br/>
+    {% for fine in book_datas %}
+    <p>card no: <b>{{fine.card_no}}</b> est amt: <b>{{fine.fine}}</b></p>
+    <table>
+    <tr>
+    <th><b>loan id</b></th>
+    <th><b>card no</b></th>
+    <th><b>date out</b></th>
+    <th><b>due date</b></th>
+    <th><b>date in</b></th>
+    <th><b>available payment</b></th>
+    </tr>
+    {% for loan_info in fine.loan %}
+    <tr>
+    <th> <input type="radio" name="loan_id" value="{{loan_info.loan_id}}"/>{{loan_info.loan_id}}</th>
+    <th>{{loan_info.card_no}}</th>
+    <th>{{loan_info.date_out}}</th>
+    <th>{{loan_info.due_date}}</th>
+    <th>{{loan_info.date_in}}</th>
+    <th>{{loan_info.a_pay}}</th>
+    </tr>
+    {% endfor %}
+    </table>
+    {% endfor %}
+    </ul>
+    </div>
+  </form>
+  {% endif %}
+{% endblock %}

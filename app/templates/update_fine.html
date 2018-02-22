@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <form name="input" action="/update_fine/" method="get">
+    <div id="tabs">
+    <ul>
+    <input type="submit" value="update"/>
+    <br/><br/>
+    {% if book_datas %}
+    <table>
+    <tr>
+    <th><b>load id</b></th>
+    <th><b>card no</b></th>
+    <th><b>fine amt</b></th>
+    <th><b>available payment</b></th>
+    </tr>
+    {% for fine in book_datas %}
+    <tr>
+    <th> {{fine.loan_id}}</th>
+    <th>{{fine.card_no}}</th>
+    <th>{{fine.fine_amt}}</th>
+    <th>{{fine.paid_attr}}</th>
+    </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+    </ul>
+    </div>
+  </form>
+{% endblock %}

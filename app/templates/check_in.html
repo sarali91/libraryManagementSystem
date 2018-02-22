@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+  <form name="input" action="/check_in/" method="get">
+    <input type="radio" name="check_in_mode" value="search" style="visibility:hidden;" checked/>
+    <div id="tabs">
+    <ul>
+    <b>Search:</b><br/><br/>
+    book ISBN:
+    <input type="text" name="ISBN" style="position:absolute;left:150px"/>
+    <br/><br/>
+    card no:
+    <input type="text" name="card_no" style="position:absolute;left:150px"/>
+    <br/><br/>
+    borrower name:
+    <input type="text" name="borrower" style="position:absolute;left:150px"/>
+    <br/><br/>
+    <input type="submit" value="search"/>
+	</ul>
+    </div>
+  </form>
+  
+  {% if errStr %}
+  <div id="tabs">
+    <ul>
+    <p><b>{{errStr}}</b></p>
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if book_datas %}
+  <form name="input" action="/check_in/" method="get">
+    <input type="radio" name="check_in_mode" value="check_in" style="visibility:hidden;" checked/>
+    <br/>
+    <div id="tabs">
+    <ul>
+    <input type="submit" value="check in"/>
+    <br/>
+    <table>
+    <tr>
+    <th><b>book ISBN</b></th>
+    <th><b>branch id</b></th>
+    <th><b>card no</b></th>
+    <th><b>date out</b></th>
+    <th><b>due date</b></th>
+    </tr>
+    {% for loan in book_datas %}
+    <tr>
+    <th><input type="radio" name="loan_id" value="{{loan.loan_id}}"/>{{loan.ISBN}}</th>
+    <th>{{loan.branch_id}}</th>
+    <th>{{loan.card_no}}</th>
+    <th>{{loan.date_out}}</th>
+    <th>{{loan.due_date}}</th>
+    </tr>
+    {% endfor %}
+    </table>
+    <br/>
+    </ul>
+    </div>
+  </form>
+  {% endif %}
+{% endblock %}
